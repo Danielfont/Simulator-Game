@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmdymnyhsiogv"]
+
+[ext_resource type="Script" uid="uid://c32bp5nc67xh2" path="res://npc/worker.gd" id="1_63bs2"]
+[ext_resource type="Texture2D" uid="uid://b3q0k1a0cqan0" path="res://assets/character-tilemap.png" id="1_pui1c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63bs2"]
+atlas = ExtResource("1_pui1c")
+region = Rect2(0, 102, 16, 16)
+
+[node name="Worker" type="Node2D"]
+script = ExtResource("1_63bs2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_63bs2")
