@@ -6,3 +6,4 @@ TODO:
 - Couple pathfinding to the tick system
     - Each tick 1 movement should happen?
     - Couple the movment to frames
+- There is a bug where the camera hits the limit and there is a pause
