@@ -5,6 +5,10 @@ extends Camera2D
 @export var zoom_max: float
 @export var zoom_min: float
 
+var is_panning = false
+var camera_start_position = Vector2.ZERO
+var pan_start_position = Vector2.ZERO
+
 func _ready() -> void:
 	#maybe want to set a dynamic starting position of the camera
 	
@@ -35,12 +39,21 @@ func _input(event):
 			zoomToPoint(mouse_position, 0.1)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and zoom.x > zoom_min:
 			zoomToPoint(mouse_position, -0.1)
+			
+		elif event.button_index == MOUSE_BUTTON_MIDDLE:
+			if event.pressed:
+				is_panning = true
+				pan_start_position = event.position
+			else:
+				is_panning = false
+	elif event is InputEventMouseMotion and is_panning:
+		var mouse_delta = event.position - pan_start_position
+		global_position -= mouse_delta / zoom.x
+		pan_start_position = event.position
 
 func zoomToPoint(point: Vector2, zoom_speed: float):
 	var old_zoom = zoom.x
 	zoom += Vector2(zoom_speed, zoom_speed)
-	#var zoom_factor = 1.0 + (zoom_speed / (zoom.x - zoom_speed))
-	#global_position += (point - global_position) * (1 - 1/zoom_factor)
 	var zoom_factor = zoom.x / old_zoom
 	global_position += (point - global_position) * (1 - 1/zoom_factor)
 	
